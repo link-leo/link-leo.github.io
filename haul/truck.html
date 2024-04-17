@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deploy My Truck!</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        table td, table th {
+            border: 1px solid black;
+        }
+        td {
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 10px;
+        }
+        .fixed-element {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<!--
+<div class="container">
+    <span class="fixed-element">This span will scroll with the page</span>
+</div>
+-->
+    <h1>Deploy My Truck!</h1>
+    <p>Estimate the cost of getting the help/use of my truck...</p>
+    <form name="truck">
+    <table>
+        <tr>
+            <td><input type="radio" name="base" value="20" checked>Base Fee ($20)</td>
+            <td>Basic <i>move my stuff</i> rate.</td>
+        </tr>
+        <tr>
+            <td><p>How much stuff?</p>
+                <input type="radio" name="bed" value="15" onclick="updateEstimate()" checked>Half bed ($15)<br />
+                <input type="radio" name="bed" value="30" onclick="updateEstimate()">Whole bed ($30)
+            </td>
+            <td><p>Estimate how much space in the back you'll need for everything I'm hauling.</p></td>
+        </tr>
+        <tr>
+            <td><p>Extras:</p>
+            <ol>
+                <li><input type="checkbox" name="extra" value="10" onclick="updateEstimate()">Careful packaging ($10)</li>
+                <li><input type="checkbox" name="extra" value="20" onclick="updateEstimate()">I load/unload it ($20)</li>
+                <li><input type="checkbox" name="extra" value="45" onclick="updateEstimate()">It's going to the dump ($45)</li>
+                <li><input type="checkbox" name="extra" value="20" onclick="updateEstimate()">Same-day scheduling ($20)</li>
+            </ol>
+            </td>
+            <td><p>Explanation:</p>
+            <ol>
+                <li>Covering leaves/grass with a tarp, wrapping furniture, etc.</li>
+                <li>Only items that can reasonably be carried by one person.</li>
+                <li>To cover the cost at the transfer station.</li>
+                <li>Rush jobs....</li>
+            </ol>
+            </td>
+        </tr>
+        <tr>
+            <td><p>How many miles will be covered?</p>
+                <input type="range" name="trip" min="1" max="25" value="0" oninput="updateEstimate()">
+                <span id="rangeValue">0</span>
+            </td>
+            <td><p>$1/mile - Only for the distance from where I am to you, and then to your destination.</p>
+                <p>Keep in mind the possibility of multiple trips!</p>
+            </td>
+        </tr>
+    </table>
+    </form>
+    <p>Estimate: $<span id="est">0</span></p>
+    <script>
+        function updateEstimate() {
+
+            var baseValue = document.forms.truck.base.value;
+            var base = parseInt(baseValue);
+
+            var bedValue = document.forms.truck.bed.value;
+            var bed = parseInt(bedValue) || 0;
+
+            var extraValue = document.querySelectorAll('input[name="extra"]:checked');
+            var extra = 0;
+            for (var e = 0; e < extraValue.length; e++) {
+                extra += parseInt(extraValue[e].value || 0);
+            }
+
+            var range = parseInt(document.querySelector('input[name="trip"]').value);
+
+            var total = base + bed + extra + range;
+
+            document.getElementById('rangeValue').innerHTML = range;
+            document.getElementById('est').innerHTML = total;
+        }
+
+        window.onload = updateEstimate()
+    </script>
+</body>
+</html>
