@@ -1,6 +1,6 @@
 ---
 description: '*shifty eyes*'
-cover: .gitbook/assets/space balls.webp
+cover: ../.gitbook/assets/space balls.webp
 coverY: 0
 ---
 
